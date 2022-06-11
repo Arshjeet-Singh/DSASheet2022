@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int profit=0;
+      // Solutin in o(n^2)
+        // for(int i=0;i<prices.size();i++)
+        // {
+        //     for(int j=i+1;j<prices.size();j++)
+        //     {
+        //         if(prices[j]>prices[i])
+        //         {
+        //             profit=max(profit,prices[j]-prices[i]);
+        //         }
+        //     }
+        // }
+      //o(n)
+        int minprice=prices[0],maxpro=INT_MIN;
+    for(int i=1;i<prices.size();i++)
+    {
+        minprice=min(minprice,prices[i]);
+        maxpro=max(maxpro,prices[i]-minprice);
+    }
+        if(maxpro>0)
+        {
+            return maxpro;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+};
