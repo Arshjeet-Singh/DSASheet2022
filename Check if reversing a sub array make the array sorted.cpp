@@ -1,0 +1,40 @@
+bool sortArr(int n, vector<int> &arr){
+       if(n==1)
+       {
+           return true;
+       }
+    int i;
+    for(i=1;i<n && arr[i-1]<arr[i];i++);
+    if(i==n)
+    {
+        return true;
+    }
+    int j=i;
+    while(j<n && arr[j-1]>arr[j])
+    {
+        if(i>1 && arr[j]<arr[i-2])
+        {
+            return false;
+        }
+        j++;
+    }
+    if(j==n)
+    {
+        return true;
+    }
+    int k=j;
+    if(arr[k]<arr[i-1])
+    {
+        return false;
+    }
+    while(k>1 && k<n)
+    {
+            if(arr[k]<arr[k-1])
+            {
+                return false;
+            }
+        k++;
+    }
+    return true;
+    // Write your code here.
+}
