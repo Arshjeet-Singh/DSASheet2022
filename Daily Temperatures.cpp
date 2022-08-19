@@ -6,7 +6,7 @@ public:
         int maxi=INT_MIN;
         for(int i=n-1;i>=0;i--)
         {
-            if(temperatures[i]>maxi)
+            if(temperatures[i]>=maxi)
             {
                 maxi=temperatures[i];
             }
