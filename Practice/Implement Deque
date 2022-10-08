@@ -1,0 +1,160 @@
+#include <bits/stdc++.h> 
+class Deque
+{
+public:
+     int *arr;
+    int f,r,N;
+    // Initialize your data structure.
+    Deque(int n)
+    {
+        N=n;
+        f=r=-1;
+        arr=new int[N];
+        // Write your code here.
+    }
+    // Pushes 'X' in the front of the deque. Returns true if it gets pushed into the deque, and false otherwise.
+    bool pushFront(int x)
+    {
+        if((f==0 && r==N-1) ||(f!=0 && r==(f-1)%(N-1)))
+        {
+            return false;
+        }
+        if(f==-1 && r==-1)
+        {
+            f=r=0;
+        }
+        else if(f==0 && r!=N-1)
+        {
+            f=N-1;
+        }
+        else
+        {
+            f--;
+        }
+        arr[f]=x;
+        return true;
+
+        // Write your code here.
+    }
+
+    // Pushes 'X' in the back of the deque. Returns true if it gets pushed into the deque, and false otherwise.
+    bool pushRear(int x)
+    {
+        if((f==0 && r==N-1) ||(f!=0 && r==(f-1)%(N-1)))
+        {
+            return false;
+        }
+        if(f==-1 && r==-1)
+        {
+            f=r=0;
+        }
+        else if(f!=0 && r==N-1)
+        {
+            r=0;
+        }
+        else
+        {
+            r++;
+        }
+        arr[r]=x;
+        return true;
+        // Write your code here.
+    }
+
+    // Pops an element from the front of the deque. Returns -1 if the deque is empty, otherwise returns the popped element.
+    int popFront()
+    {
+        if(f==-1 && r==-1)
+        {
+            return -1;
+        }
+        int a=arr[f];
+        arr[f]=-1;
+        if(f==r)
+        {
+            f=r=-1;
+        }
+        else if(f==N-1)
+        {
+            f=0;
+        }
+        else
+        {
+            f++;
+        }
+        return a;
+        // Write your code here.
+    }
+
+    // Pops an element from the back of the deque. Returns -1 if the deque is empty, otherwise returns the popped element.
+    int popRear()
+    {
+        if(f==-1 && r==-1)
+        {
+            return -1;
+        }
+        int a=arr[r];
+        arr[r]=-1;
+        if(f==r)
+        {
+            f=r=-1;
+        }
+        else if(r==0)
+        {
+            r=N-1;
+        }
+        else
+        {
+            r--;
+        }
+        return a;
+        // Write your code here.
+    }
+
+    // Returns the first element of the deque. If the deque is empty, it returns -1.
+    int getFront()
+    {
+        if(f==-1 && r==-1)
+        {
+            return -1;
+        }
+        int a=arr[f];
+        return a;
+        // Write your code here.
+    }
+
+    // Returns the last element of the deque. If the deque is empty, it returns -1.
+    int getRear()
+    {
+        if(f==-1 && r==-1)
+        {
+            return -1;
+        }
+        int a=arr[r];
+        return a;
+
+        // Write your code here.
+    }
+
+    // Returns true if the deque is empty. Otherwise returns false.
+    bool isEmpty()
+    {
+        if(f==-1 && r==-1)
+        {
+            return true;
+        }
+        return false;
+        // Write your code here.
+    }
+
+    // Returns true if the deque is full. Otherwise returns false.
+    bool isFull()
+    {
+         if((f==0 && r==N-1) ||(f!=0 && r==(f-1)%(N-1)))
+        {
+            return true;
+        }
+        return false;
+        // Write your code here.
+    }
+};
