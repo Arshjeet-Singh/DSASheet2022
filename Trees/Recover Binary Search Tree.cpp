@@ -76,16 +76,50 @@ public:
         ind++;
         rhelper(root->right,v,ind);
     }
+    TreeNode *first,*middle,*last,*prev;
+    void optihelper(TreeNode *root)
+    {
+        if(root==0)
+        {
+            return;
+        }
+        optihelper(root->left);
+        if(prev!=0 && root->val<prev->val)
+        {
+            if(first==0)
+            {
+                first=prev;
+                middle=root;
+            }
+            else
+            {
+                last=root;
+            }
+        }
+        prev=root;
+        optihelper(root->right);
+    }
     void recoverTree(TreeNode* root) {
         if(root==0)
         {
             return;
         }
-        vector<int> v;
-        store(root,v);
-        sort(v.begin(),v.end());
-        int ind=0;
-        rhelper(root,v,ind);
+        // vector<int> v;
+        // store(root,v);
+        // sort(v.begin(),v.end());
+        // int ind=0;
+        // rhelper(root,v,ind);
+        prev=new TreeNode(INT_MIN);
+        first=middle=last=0;
+        optihelper(root);
+        if(first && last)
+        {
+            swap(first->val,last->val);
+        }
+        else if(first && middle)
+        {
+            swap(first->val,middle->val);
+        }
 //         int v1=0,v2=0;
 //         helper(root,INT_MIN,INT_MAX,v1,v2);
 //         TreeNode *req=findnode(root,v2),*req2=findnode(root,v1);
