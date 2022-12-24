@@ -1,4 +1,5 @@
 //{ Driver Code Starts
+//GFG wala code
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -63,3 +64,51 @@ int main() {
     return 0;
 }
 // } Driver Code Ends
+////////////////////
+// Code studio wala code
+#include <bits/stdc++.h> 
+void bfs(unordered_map<int,set<int>> &adj,unordered_map<int,bool> &vis,vector<int> &ans,int node)
+{
+    queue<int> q;
+    q.push(node);
+    vis[node]=1;
+    while(!q.empty())
+    {
+        int temp=q.front();
+        q.pop();
+        ans.push_back(temp);
+        for(auto i:adj[temp])
+        {
+            if(!vis[i])
+            {
+                q.push(i);
+                vis[i]=1;
+            }
+        }
+    }
+}
+vector<int> BFS(int vertex, vector<pair<int, int>> edges)
+{
+    unordered_map<int,bool> vis;
+    unordered_map<int,set<int>> adj;
+    for(int i=0;i<edges.size();i++)
+    {
+        int u=edges[i].first;
+        int v=edges[i].second;
+        adj[u].insert(v);
+        adj[v].insert(u);
+    }
+    vector<int> ans;
+    for(int i=0;i<vertex;i++)
+    {
+        if(!vis[i])
+        {
+            bfs(adj,vis,ans,i);
+        }
+    }
+//     sort(ans.begin(),ans.end());
+    return ans;
+    // Write your code here
+}
+
+
