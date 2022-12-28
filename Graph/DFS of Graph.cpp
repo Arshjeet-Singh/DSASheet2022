@@ -1,3 +1,41 @@
+//Code Studio Code
+#include<bits/stdc++.h>
+void dfs(unordered_map<int,list<int>> &adj,unordered_map<int,bool> &vis,int n,vector<int> &comp)
+{
+    vis[n]=true;
+    comp.push_back(n);
+    for(auto i:adj[n])
+    {
+        if(!vis[i])
+        {
+            dfs(adj,vis,i,comp);
+        }
+    }
+}
+vector<vector<int>> depthFirstSearch(int V, int E, vector<vector<int>> &edges)
+{
+    unordered_map<int,list<int>> adj;
+    for(int i=0;i<edges.size();i++)
+    {
+        int u=edges[i][0];
+        int v=edges[i][1];
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    unordered_map<int,bool> vis;
+    vector<vector<int>> ans;
+    for(int i=0;i<V;i++)
+    {
+        if(!vis[i])
+        {
+            vector<int> comp;
+            dfs(adj,vis,i,comp);
+            ans.push_back(comp);
+        }
+    }
+    return ans;
+    // Write your code here
+}
 //{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
