@@ -1,3 +1,4 @@
+//Using both bfs and dfs
 #include<bits/stdc++.h>
 bool bfs(unordered_map<int,list<int>> &adj,unordered_map<int,bool> &vis,int node)
 {
@@ -26,6 +27,26 @@ bool bfs(unordered_map<int,list<int>> &adj,unordered_map<int,bool> &vis,int node
     }
     return false;
 }
+bool dfs(unordered_map<int,list<int>> &adj,unordered_map<int,bool> &vis,int node,int p)
+{
+    vis[node]=true;
+    for(auto i:adj[node])
+    {
+        if(!vis[i])
+        {
+            bool ans=dfs(adj,vis,i,node);
+            if(ans)
+            {
+                return true;
+            }
+        }
+        else if(p!=i)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 string cycleDetection (vector<vector<int>>& edges, int n, int m)
 {
     unordered_map<int,list<int>> adj;
@@ -41,7 +62,8 @@ string cycleDetection (vector<vector<int>>& edges, int n, int m)
     {
         if(!vis[i])
         {
-            bool ans=bfs(adj,vis,i);
+//             bool ans=bfs(adj,vis,i);
+            bool ans=dfs(adj,vis,i,-1);
             if(ans)
             {
                 return "Yes";
