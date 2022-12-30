@@ -18,7 +18,41 @@ vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e)  {
         int u=edges[i][0],v=edges[i][1];
         adj[u].push_back(v);
     }
-    vector<bool> vis(v);
+    //Using Kahn's BFS
+    vector<int> in(v);
+    for(auto i:adj)
+    {
+        for(auto j:i.second)
+        {
+            in[j]++;
+        }
+    }
+    queue<int> q;
+    vector<int> ans;
+    for(int i=0;i<in.size();i++)
+    {
+        if(in[i]==0)
+        {
+            q.push(i);
+        }
+    }
+    while(!q.empty())
+    {
+        int f=q.front();
+        q.pop();
+        ans.push_back(f);
+        for(auto i:adj[f])
+        {
+             in[i]--;
+            if(in[i]==0)
+            {
+                q.push(i);
+            }    
+        }
+    }
+    return ans;
+    //Using dfs 
+   /* vector<bool> vis(v);
     stack<int> s;
     vector<int> ans;
     for(int i=0;i<v;i++)
@@ -33,6 +67,6 @@ vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e)  {
         ans.push_back(s.top());
         s.pop();
     }
-    return ans;
+    return ans;*/
     // Write your code here
 }
