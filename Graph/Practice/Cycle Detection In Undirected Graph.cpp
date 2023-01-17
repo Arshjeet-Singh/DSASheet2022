@@ -73,3 +73,75 @@ string cycleDetection (vector<vector<int>>& edges, int n, int m)
     return "No";
     // Write your code here.
 }
+
+//gfg code
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+  public:
+    // Function to detect cycle in an undirected graph.
+    bool dfs(int n,vector<bool> &vis,vector<int> adj[],int p)
+    {
+        vis[n]=true;
+        for(auto i:adj[n])
+        {
+            if(!vis[i])
+            {
+                int ans=dfs(i,vis,adj,n);
+                if(ans)
+                {
+                    return true;
+                }
+            }
+            else if(p!=i)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    bool isCycle(int V, vector<int> adj[]) {
+        vector<bool> vis(V,0);
+        for(int i=0;i<V;i++)
+        {
+            if(!vis[i])
+            {
+                int ans=dfs(i,vis,adj,-1);
+                if(ans)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+        // Code here
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int V, E;
+        cin >> V >> E;
+        vector<int> adj[V];
+        for (int i = 0; i < E; i++) {
+            int u, v;
+            cin >> u >> v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        Solution obj;
+        bool ans = obj.isCycle(V, adj);
+        if (ans)
+            cout << "1\n";
+        else
+            cout << "0\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
