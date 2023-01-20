@@ -55,10 +55,75 @@ int solvet(vector<int> &weight,vector<int> &value,int n,int cap)
     }
     return dp[n-1][cap];
 }
+int space(vector<int> &weight,vector<int> &value,int n,int cap)
+{
+    vector<int> prev(cap+1,0);
+    vector<int> curr(cap+1,0);
+    for(int w=weight[0];w<=cap;w++)
+    {
+        if(weight[0]<=cap)
+        {
+             prev[w]=value[0];
+        }
+        else
+        {
+            prev[w]=0;
+        }
+    }
+    for(int i=1;i<n;i++)
+    {
+       for(int w=0;w<=cap;w++)
+       {
+           int incl=0;
+           if(weight[i]<=w)
+           {
+               incl=value[i]+prev[w-weight[i]];
+           }
+           int excl=prev[w];
+           int ans=max(incl,excl);
+           curr[w]=ans;
+       }
+        prev=curr;
+    }
+    return prev[cap];
+}
+int lspace(vector<int> &weight,vector<int> &value,int n,int cap)
+{
+    //vector<int> prev(cap+1,0);
+    vector<int> curr(cap+1,0);
+    for(int w=weight[0];w<=cap;w++)
+    {
+        if(weight[0]<=cap)
+        {
+             curr[w]=value[0];
+        }
+        else
+        {
+            curr[w]=0;
+        }
+    }
+    for(int i=1;i<n;i++)
+    {
+       for(int w=cap;w>=0;w--)
+       {
+           int incl=0;
+           if(weight[i]<=w)
+           {
+               incl=value[i]+curr[w-weight[i]];
+           }
+           int excl=curr[w];
+           int ans=max(incl,excl);
+           curr[w]=ans;
+       }
+        //prev=curr;
+    }
+    return curr[cap];
+}
+
 int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
 {
     //vector<vector<int>> dp(n,vector<int>(maxWeight+1,-1));
     //return solve(weight,value,n-1,maxWeight);
-	return solvet(weight,value,n,maxWeight);
+	return lspace(weight,value,n,maxWeight);
     // Write your code here
 }
